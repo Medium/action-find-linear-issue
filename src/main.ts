@@ -1,4 +1,4 @@
-import { debug, setFailed, getInput, setOutput } from "@actions/core";
+import { debug, info, setFailed, getInput, setOutput } from "@actions/core";
 import {
   Issue,
   IssueLabel,
@@ -120,6 +120,10 @@ const main = async () => {
           const promises = rawIssues.map(
             async (issue): Promise<FoundIssueType> => {
               const project = await issue.project;
+
+              info(`Project: ${JSON.stringify(project)}`);
+              info(`Issue ${issue.number} projectName: ${project?.name}`);
+
               return {
                 ...(issue as LimitedIssue),
                 team: inputs.withTeam ? await issue.team : null,
