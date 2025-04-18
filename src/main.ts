@@ -115,7 +115,7 @@ const main = async () => {
 
       if (issues.length) {
         const extendIssues = (
-          rawIssues: Issue[]
+          rawIssues: Issue[],
         ): Promise<FoundIssueType[]> => {
           const promises = rawIssues.map(
             async (issue): Promise<FoundIssueType> => {
@@ -131,7 +131,7 @@ const main = async () => {
                 project: inputs.withProject ? project : null,
                 projectName: inputs.withProject ? project?.name : null,
               };
-            }
+            },
           );
 
           return Promise.all(promises);

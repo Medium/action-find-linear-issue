@@ -30053,11 +30053,15 @@ const main = async () => {
             if (issues.length) {
                 const extendIssues = (rawIssues) => {
                     const promises = rawIssues.map(async (issue) => {
+                        const project = await issue.project;
+                        (0, core_1.info)(`Project: ${JSON.stringify(project)}`);
+                        (0, core_1.info)(`Issue ${issue.number} projectName: ${project?.name}`);
                         return {
                             ...issue,
                             team: inputs.withTeam ? await issue.team : null,
                             labels: inputs.withLabels ? (await issue.labels()).nodes : null,
-                            project: inputs.withProject ? await issue.project : null,
+                            project: inputs.withProject ? project : null,
+                            projectName: inputs.withProject ? project?.name : null,
                         };
                     });
                     return Promise.all(promises);
@@ -30073,7 +30077,6 @@ const main = async () => {
                 return;
             }
         }
-        (0, core_1.setFailed)(`Failed to find Linear issue identifier in PR branch, title, or body.`);
         return;
     }
     catch (error) {
