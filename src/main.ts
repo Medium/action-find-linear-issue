@@ -114,7 +114,7 @@ const main = async () => {
 
       if (issues.length) {
         const extendIssues = (
-          rawIssues: Issue[],
+          rawIssues: Issue[]
         ): Promise<FoundIssueType[]> => {
           const promises = rawIssues.map(
             async (issue): Promise<FoundIssueType> => {
@@ -124,7 +124,7 @@ const main = async () => {
                 labels: inputs.withLabels ? (await issue.labels()).nodes : null,
                 project: inputs.withProject ? await issue.project : null,
               };
-            },
+            }
           );
 
           return Promise.all(promises);
@@ -143,9 +143,6 @@ const main = async () => {
       }
     }
 
-    setFailed(
-      `Failed to find Linear issue identifier in PR branch, title, or body.`,
-    );
     return;
   } catch (error) {
     setFailed(`${(error as any)?.message ?? error}`);
