@@ -34,6 +34,7 @@ type FoundIssueType = LimitedIssue & {
   team?: Team | null;
   labels?: IssueLabel[] | null;
   project?: Project | null;
+  projectName?: string | null;
 };
 
 const main = async () => {
@@ -118,11 +119,13 @@ const main = async () => {
         ): Promise<FoundIssueType[]> => {
           const promises = rawIssues.map(
             async (issue): Promise<FoundIssueType> => {
+              const project = await issue.project;
               return {
                 ...(issue as LimitedIssue),
                 team: inputs.withTeam ? await issue.team : null,
                 labels: inputs.withLabels ? (await issue.labels()).nodes : null,
-                project: inputs.withProject ? await issue.project : null,
+                project: inputs.withProject ? project : null,
+                projectName: inputs.withProject ? project?.name : null,
               };
             }
           );
