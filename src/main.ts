@@ -35,6 +35,8 @@ type FoundIssueType = LimitedIssue & {
   labels?: IssueLabel[] | null;
   project?: Project | null;
   projectName?: string | null;
+  projectUrl?: string | null;
+  projectColor?: string | null;
 };
 
 const main = async () => {
@@ -130,6 +132,8 @@ const main = async () => {
                 labels: inputs.withLabels ? (await issue.labels()).nodes : null,
                 project: inputs.withProject ? project : null,
                 projectName: inputs.withProject ? project?.name : null,
+                projectUrl: inputs.withProject ? project?.url : null,
+                projectColor: inputs.withProject ? project?.color : null,
               };
             },
           );
