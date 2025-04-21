@@ -30075,10 +30075,12 @@ const main = async () => {
                 }
                 else {
                     (0, core_1.setOutput)("linear-issue", JSON.stringify(foundIssues[0]));
+                    (0, core_1.setOutput)("found-project-issue", !!foundIssues[0].project);
                 }
                 return;
             }
         }
+        (0, core_1.setOutput)("found-project-issue", false);
         return;
     }
     catch (error) {

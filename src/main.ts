@@ -149,11 +149,13 @@ const main = async () => {
           setOutput("linear-issues", JSON.stringify(foundIssues));
         } else {
           setOutput("linear-issue", JSON.stringify(foundIssues[0]));
+          setOutput("found-project-issue", !!foundIssues[0].project);
         }
         return;
       }
     }
 
+    setOutput("found-project-issue", false);
     return;
   } catch (error) {
     setFailed(`${(error as any)?.message ?? error}`);
